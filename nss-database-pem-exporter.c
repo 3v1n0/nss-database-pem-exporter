@@ -118,7 +118,7 @@ print_trusted_certificates (CERTCertDBHandle *handle)
   CERTCertList *list;
   CERTCertListNode *node;
 
-  list = PK11_ListCerts (PK11CertListAll, NULL);
+  list = PK11_ListCerts (PK11CertListCA, NULL);
   for (node = CERT_LIST_HEAD (list); !CERT_LIST_END (node, list);
        node = CERT_LIST_NEXT (node))
     {
