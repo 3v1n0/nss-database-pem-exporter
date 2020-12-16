@@ -28,6 +28,7 @@
 #include <nss/pk11func.h>
 
 #define NSS_DATABASE_PATH "/etc/pki/nssdb"
+#define OPEN_FLAGS (NSS_INIT_READONLY | NSS_INIT_NOROOTINIT | NSS_INIT_FORCEOPEN)
 
 #define NS_CERT_HEADER "-----BEGIN CERTIFICATE-----"
 #define NS_CERT_TRAILER "-----END CERTIFICATE-----"
@@ -159,7 +160,7 @@ main (void)
     nssdb = NSS_DATABASE_PATH;
 
   if (NSS_Initialize (nssdb, NULL, NULL,
-                      "secmod.db", NSS_INIT_READONLY) != SECSuccess)
+                      "secmod.db", OPEN_FLAGS) != SECSuccess)
     {
       fprintf (stderr, "Failed to open database\n");
       return EXIT_FAILURE;
