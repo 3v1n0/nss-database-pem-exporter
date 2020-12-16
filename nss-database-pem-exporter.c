@@ -47,11 +47,13 @@ print_ascii_certificate (CERTCertDBHandle      *handle,
        node = CERT_LIST_NEXT (node))
     {
       CERTCertificate *c = node->cert;
+      char *ascii_cert = BTOA_DataToAscii (c->derCert.data, c->derCert.len);
 
       fprintf (stdout, NS_CERT_HEADER "\n");
-      fprintf (stdout, "%s\n",
-               BTOA_DataToAscii (c->derCert.data, c->derCert.len));
+      fprintf (stdout, "%s\n", ascii_cert);
       fprintf (stdout, NS_CERT_TRAILER "\n");
+
+      free (ascii_cert);
     }
 
   if (certs)
