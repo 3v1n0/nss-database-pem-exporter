@@ -42,6 +42,8 @@ print_ascii_certificate (CERTCertDBHandle      *handle,
 
   certs = CERT_CreateSubjectCertList (NULL, handle, &cert->derSubject,
                                       PR_Now (), PR_FALSE);
+  if (!certs)
+    return SECSuccess;
 
   for (node = CERT_LIST_HEAD (certs); !CERT_LIST_END (node, certs);
        node = CERT_LIST_NEXT (node))
@@ -122,6 +124,10 @@ print_trusted_certificates (CERTCertDBHandle *handle)
   CERTCertListNode *node;
 
   list = PK11_ListCerts (PK11CertListCA, NULL);
+
+  if (!list)
+    return SECSuccess;
+
   for (node = CERT_LIST_HEAD (list); !CERT_LIST_END (node, list);
        node = CERT_LIST_NEXT (node))
     {
